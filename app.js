@@ -50,6 +50,8 @@ app.get('/restaurant', (req, res) => {
 
 //filterapi
 app.get('/filter/:mealType', (req, res) => {
+    console.log(req.params)
+    console.log(req.query)
     var sort = { cost: 1 }
     var skip = 0;
     var limit = 1000000000000;
@@ -60,7 +62,7 @@ app.get('/filter/:mealType', (req, res) => {
         skip = Number(req.query.skip);
         limit = Number(req.query.limit)
     }
-    var mealType = req.params.mealType;
+    var mealType =Number(req.params.mealType);
     var query = { "mealTypes.mealtype_id": Number(mealType) };
     if (req.query.cuisine && req.query.lcost && req.query.hcost) {
         query = {
@@ -70,7 +72,7 @@ app.get('/filter/:mealType', (req, res) => {
         }
     }
     else if (req.query.cuisine) {
-        query = { "mealTypes.mealtype_id": mealType, "cuisines.cuisine_id": Nuumber(req.query.cuisine) }
+        query = { "mealTypes.mealtype_id": mealType, "cuisines.cuisine_id": Number(req.query.cuisine) }
         //query = {"type.mealtype":mealType,"Cuisine.cuisine":{$in:["1","5"]}}
     }
     else if (req.query.lcost && req.query.hcost) {
