@@ -113,7 +113,8 @@ app.get('/menu/:id', (req, res) => {
 })
 
 app.post('/menuItem', (req, res) => {
-    db.collection('menu').find({menu_id:{$in:[req.body]}}).toArray((err, result) => {
+    console.log(req.body);
+    db.collection('menu').find({menu_id:{$in:req.body}}).toArray((err, result) => {
         if (err) throw err;
         res.send(result)
     })
